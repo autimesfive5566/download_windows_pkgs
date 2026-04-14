@@ -1,0 +1,23 @@
+name: Download Packages
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Pip Download
+        run: |
+          mkdir python_pkgs
+          # 使用引號包裹帶有 [tools] 的名稱，確保能正確下載依賴項
+          pip download "crewai[tools]" aider-chat -d python_pkgs
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: crewai-310-packages
+          path: python_pkgs/
