@@ -13,7 +13,7 @@ jobs:
       - name: Pip Download
         run: |
           mkdir python_pkgs
-          # 使用引號包裹帶有 [tools] 的名稱，確保能正確下載依賴項
+          python -m pip install --upgrade pip
           pip download "crewai[tools]==1.14.1" litellm==1.83.0 -d python_pkgs
 
       - name: Upload Artifact
