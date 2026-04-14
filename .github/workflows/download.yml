@@ -14,7 +14,7 @@ jobs:
         run: |
           mkdir python_pkgs
           # 使用引號包裹帶有 [tools] 的名稱，確保能正確下載依賴項
-          pip download "crewai[tools]" aider-chat -d python_pkgs
+          pip download "crewai[tools]==1.14.1" litellm==1.83.0 -d python_pkgs
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
