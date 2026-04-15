@@ -14,7 +14,7 @@ jobs:
         run: |
           mkdir python_pkgs
           python -m pip install --upgrade pip
-          pip download "crewai[tools]==1.14.1" litellm==1.83.0 -d python_pkgs
+          pip download langgraph langchain-litellm -d python_pkgs
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
