@@ -1,5 +1,11 @@
 name: Download Packages
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      package_names:
+        description: '請輸入要下載的套件名稱 (空格隔開)'
+        required: true
+        default: 'langgraph langchain-litellm'
 
 jobs:
   build:
@@ -14,10 +20,12 @@ jobs:
         run: |
           mkdir python_pkgs
           python -m pip install --upgrade pip
-          pip download langgraph langchain-litellm -d python_pkgs
+          # 使用 ${{ github.event.inputs.package_names }} 來讀取你輸入的內容
+          pip download ${{ github.event.inputs.package_names }} -d python_pkgs
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: python-310-packages
+          # 動態命名 Artifact（可選），方便區分
+          name: python-packages-artifact
           path: python_pkgs/
