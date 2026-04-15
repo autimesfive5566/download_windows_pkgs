@@ -19,5 +19,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: crewai-310-packages
+          name: python-310-packages
           path: python_pkgs/
