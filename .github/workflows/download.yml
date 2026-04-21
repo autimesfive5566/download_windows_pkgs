@@ -5,7 +5,7 @@ on:
       package_names:
         description: '請輸入要下載的套件名稱 (空格隔開)'
         required: true
-        default: 'langgraph langchain-litellm'
+        default: ''
 
 jobs:
   build:
