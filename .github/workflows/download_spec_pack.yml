@@ -21,9 +21,6 @@ jobs:
             --index-url https://download.pytorch.org/whl/cpu `
             --dest ./packages
 
-          # 2. 下載 flet (GUI 核心)
-          pip download flet --dest ./packages
-
           # 3. 下載主程式及其所有依賴項
           # 使用 --no-cache-dir 確保抓到最新，並限制為僅下載 (download) 不安裝
           pip download "transparent-background[gui]" --dest ./packages
