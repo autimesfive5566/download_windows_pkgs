@@ -1,0 +1,39 @@
+name: Package Transparent Background (CPU Version)
+
+on:
+  workflow_dispatch: # 讓你可以在 GitHub 網頁上手動點擊 "Run workflow"
+
+jobs:
+  download-and-package:
+    runs-on: windows-latest
+
+    steps:
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install CPU-only Packages to Specific Folder
+        run: |
+          # 建立一個存放所有套件的資料夾
+          mkdir my_packages
+          
+          # 1. 先安裝 CPU 版 Torch (預先下載到指定目錄)
+          pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu --target ./my_packages
+          
+          # 2. 安裝 transparent-background 到同一目錄
+          # 注意：這裡不指定 index-url 是為了讓它抓取一般的 pypi 套件，但因為 target 已有 torch，它不會重複下載 GPU 版
+          pip install transparent-background --target ./my_packages
+
+      - name: Zip the packages
+        shell: pwsh
+        run: |
+          # 將所有下載好的套件壓縮成一個 zip 檔
+          Compress-Archive -Path ./my_packages/* -DestinationPath transparent_bg_cpu.zip
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: transparent-background-windows-cpu
+          path: transparent_bg_cpu.zip
+          retention-days: 5 # 檔案保留 5 天
