@@ -23,7 +23,7 @@ jobs:
           
           # 2. 安裝 transparent-background 到同一目錄
           # 注意：這裡不指定 index-url 是為了讓它抓取一般的 pypi 套件，但因為 target 已有 torch，它不會重複下載 GPU 版
-          pip install transparent-background --target ./my_packages
+          pip install transparent-background[gui] --target ./my_packages
 
       - name: Zip the packages
         shell: pwsh
